@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+env/
+venv/
+myenv/
+
+# Environment files
+.env
+
+# Node.js
+node_modules/
+
+# Large datasets
+dip_forest_project/dataset/images/
+dip_forest_project/dataset/masks/
+
+# Zip files
+*.zip
+
+# Other project inside your dataset
+dip_forest_project/dataset/final1/
+
+# VS Code
+.vscode/

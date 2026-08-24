@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frontend Auth Test</title>
+</head>
+<body>
+    <h1>Frontend Authentication Test</h1>
+    <div id="status"></div>
+    <button onclick="testAuth()">Test Authentication</button>
+    <button onclick="clearAuth()">Clear Auth</button>
+    
+    <script>
+        function testAuth() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = '<p>Testing authentication...</p>';
+            
+            // Check localStorage
+            const storedUser = localStorage.getItem('studySphereUser');
+            if (!storedUser) {
+                statusDiv.innerHTML = '<p style="color: red;">❌ No user found in localStorage</p>';
+                return;
+            }
+            
+            try {
+                const user = JSON.parse(storedUser);
+                statusDiv.innerHTML += `<p>✅ User found: ${user.email}</p>`;
+                statusDiv.innerHTML += `<p>Token: ${user.token ? 'Present' : 'Missing'}</p>`;
+                
+                // Test API call
+                fetch('/api/sessions/analytics?days=7', {
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`
+                    }
+                })
+                .then(res => {
+                    statusDiv.innerHTML += `<p>API Status: ${res.status}</p>`;
+                    return res.json();
+                })
+                .then(data => {
+                    statusDiv.innerHTML += `<p>✅ API Response: ${JSON.stringify(data).substring(0, 100)}...</p>`;
+                })
+                .catch(err => {
+                    statusDiv.innerHTML += `<p style="color: red;">❌ API Error: ${err.message}</p>`;
+                });
+                
+            } catch (e) {
+                statusDiv.innerHTML += `<p style="color: red;">❌ Error parsing user: ${e.message}</p>`;
+            }
+        }
+        
+        function clearAuth() {
+            localStorage.removeItem('studySphereUser');
+            document.getElementById('status').innerHTML = '<p>Auth cleared</p>';
+        }
+    </script>
+</body>
+</html> 

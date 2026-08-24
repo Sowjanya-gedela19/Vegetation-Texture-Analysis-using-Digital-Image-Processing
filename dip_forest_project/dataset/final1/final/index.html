@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Study Progress Tracker</title>
+</head>
+<body>
+    <h1>Register</h1>
+    <form id="registerForm">
+        <input type="text" name="name" placeholder="Name" required><br>
+        <input type="email" name="email" placeholder="Email" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <button type="submit">Register</button>
+    </form>
+    <hr>
+    <h1>Log Study Progress</h1>
+    <form id="progressForm">
+        <input type="text" name="subject" placeholder="Subject" required><br>
+        <input type="date" name="date" required><br>
+        <input type="number" name="hours" placeholder="Hours Studied" min="1" required><br>
+        <button type="submit">Submit Progress</button>
+    </form>
+    <div id="suggestion"></div>
+    <script src="script.js"></script>
+</body>
+</html>
